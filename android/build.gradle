@@ -1,0 +1,30 @@
+buildscript {
+    repositories {
+        google()  // Pastikan ada repositori Google
+        mavenCentral()  // Juga penting untuk repositori Maven Central
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.4.1'  // Sesuaikan dengan versi yang benar
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
